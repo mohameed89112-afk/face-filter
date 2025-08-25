@@ -1,69 +1,283 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Photo Editor</title>
-  
-  <!-- Style -->
-  <link rel="stylesheet" href="style.css" />
+:root {
+    --primary-color: #2196f3;
+    --primary-dark: #1976d2;
+    --text-color: #333;
+    --bg-color: #f9f9f9;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
 
-  <!-- Manifest (PWA) -->
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#000000" />
+.dark-mode {
+    --text-color: #f0f0f0;
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --border-color: #333;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
 
-  <!-- Icons -->
-  <link rel="icon" href="icons/icon-192.png" type="image/png"/>
-  <link rel="apple-touch-icon" href="icons/icon-192.png"/>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: var(--transition);
+}
 
-</head>
-<body>
-  <!-- ☰ القائمة الجانبية -->
-  <nav class="sidebar">
-    <button id="menuToggle">☰</button>
-    <ul id="menu">
-      <li><a href="#filters">🎨 الفلاتر</a></li>
-      <li><a href="#adjustments">🔧 إعدادات الصورة</a></li>
-    </ul>
-  </nav>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+    transition: var(--transition);
+}
 
-  <!-- أداة رفع الصور -->
-  <div class="upload-container">
-    <input type="file" id="upload" accept="image/*" />
-    <button id="downloadBtn">💾 تحميل الصورة</button>
-  </div>
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-  <!-- عرض الصورة -->
-  <div class="editor">
-    <canvas id="canvas"></canvas>
-  </div>
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
 
-  <!-- قسم الفلاتر -->
-  <section id="filters" class="panel">
-    <h2>🎨 الفلاتر</h2>
-    <div class="filters-grid" id="filtersList">
-      <!-- الفلاتر هتضاف هنا من JavaScript -->
-    </div>
-  </section>
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
 
-  <!-- قسم إعدادات الصورة -->
-  <section id="adjustments" class="panel">
-    <h2>🔧 إعدادات الصورة</h2>
-    <label>السطوع <input type="range" id="brightness" min="0" max="200" value="100"/></label>
-    <label>التباين <input type="range" id="contrast" min="0" max="200" value="100"/></label>
-    <label>التشبع <input type="range" id="saturation" min="0" max="200" value="100"/></label>
-    <label>الحدة <input type="range" id="sharpness" min="0" max="10" value="0"/></label>
-  </section>
+.logo i {
+    margin-left: 10px;
+}
 
-  <!-- Script -->
-  <script src="script.js"></script>
-  <script>
-    // تسجيل الـ Service Worker (عشان PWA)
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js")
-      .then(() => console.log("Service Worker Registered"))
-      .catch(err => console.log("SW Error:", err));
+.controls {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn i {
+    font-size: 16px;
+}
+
+.theme-toggle {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+}
+
+.panel {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    height: fit-content;
+}
+
+.panel-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.filter-item {
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.filter-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.filter-item.active {
+    border-color: var(--primary-color);
+    background-color: rgba(33, 150, 243, 0.1);
+}
+
+.filter-preview {
+    width: 100%;
+    height: 70px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    background-color: #eee;
+    background-size: cover;
+    background-position: center;
+}
+
+.adjustment-item {
+    margin-bottom: 15px;
+}
+
+.adjustment-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.slider {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #ddd;
+    outline: none;
+    border-radius: 4px;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+}
+
+.image-container {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+}
+
+#image-display {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.upload-placeholder {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+.upload-placeholder i {
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.hamburger-menu {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    color: #777;
+}
+
+/* أنيميشن لزر التحميل */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* responsive design */
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr 2fr;
     }
-  </script>
-</body>
-</html>
+    
+    .right-panel {
+        display: none;
+    }
+    
+    .hamburger-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .left-panel {
+        display: none;
+    }
+    
+    .filters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
