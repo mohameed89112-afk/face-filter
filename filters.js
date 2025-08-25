@@ -1,32 +1,37 @@
-// filters.js
+// يمكنك إضافة المزيد من الفلاتر هنا
+const additionalFilters = [
+    { name: 'فيلتر 1', class: 'filter1', style: 'contrast(150%) saturate(200%)' },
+    { name: 'فيلتر 2', class: 'filter2', style: 'sepia(80%) hue-rotate(90deg)' },
+    // أضف المزيد من الفلاتر هنا...
+];
 
-function applyFilter(filter) {
-    const img = document.getElementById("preview");
-    img.style.filter = filter;
+// دالة لإضافة الفلاتر الإضافية
+function addAdditionalFilters() {
+    const filtersContainer = document.getElementById('filters-container');
+    
+    additionalFilters.forEach(filter => {
+        const filterElement = document.createElement('div');
+        filterElement.classList.add('filter-item');
+        filterElement.setAttribute('data-filter', filter.class);
+        
+        filterElement.innerHTML = `
+            <div class="filter-preview" style="filter: ${filter.style}"></div>
+            <div>${filter.name}</div>
+        `;
+        
+        filterElement.addEventListener('click', () => {
+            document.querySelectorAll('.filter-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            filterElement.classList.add('active');
+            activeFilter = filter.class;
+            applyFilters();
+        });
+        
+        filtersContainer.appendChild(filterElement);
+    });
 }
 
-// قائمة الفلاتر
-const filters = {
-    none: "none",
-    grayscale: "grayscale(100%)",
-    sepia: "sepia(100%)",
-    invert: "invert(100%)",
-    blur: "blur(5px)",
-    brightness: "brightness(150%)",
-    contrast: "contrast(200%)",
-    saturate: "saturate(200%)",
-    hueRotate: "hue-rotate(90deg)",
-    opacity: "opacity(50%)",
-};
-
-// إنشاء الأزرار تلقائياً
-window.onload = () => {
-    const container = document.getElementById("filters");
-    for (let key in filters) {
-        const btn = document.createElement("button");
-        btn.innerText = key;
-        btn.classList.add("filter-btn");
-        btn.onclick = () => applyFilter(filters[key]);
-        container.appendChild(btn);
-    }
-};
+// استدعاء الدالة عند تحميل الصفحة
+window.addEventListener('load', addAdditionalFilters);
