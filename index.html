@@ -3,161 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Face Filter - فلتر الذكاء الاصطناعي لتعديل الوجه</title>
-  <meta name="description" content="جرب فلتر الذكاء الاصطناعي لتعديل الوجه مباشرة من المتصفح. ارفع صورتك وشوف النتيجة فورًا.">
-  <meta name="keywords" content="فلتر وجه, تعديل الصور, ذكاء اصطناعي, face filter, photo editor AI, فلتر ذكاء اصطناعي">
-  <meta name="author" content="Your Name">
-
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin: 40px; background: #f5f5f5; }
-    h1 { color: #333; }
-    input, button { margin: 10px; padding: 10px; }
-    canvas { margin-top: 20px; border: 2px solid #ccc; border-radius: 8px; }
-  </style>
+  <title>محرر الصور</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🎭 فلتر الذكاء الاصطناعي لتعديل الوجه</h1>
-  <p>ارفع صورتك وجرب تأثيرات الفلتر مباشرة!</p>
-
-  <input type="file" id="upload" accept="image/*">
-  <button onclick="applyFilter()">تطبيق الفلتر</button>
-  <br>
-  <canvas id="canvas"></canvas>
-
-  <script>
-    const upload = document.getElementById('upload');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let img = new Image();
-
-    upload.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        img.onload = function() {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-        }
-        img.src = event.target.result;
-      }
-      reader.readAsDataURL(file);
-    });
-
-    function applyFilter() {
-      if (!img.src) return;
-      ctx.drawImage(img, 0, 0);
-      let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      let data = imageData.data;
-
-      // فلتر بسيط: يدي Glow على الوجه
-      for (let i = 0; i < data.length; i += 4) {
-        data[i] = data[i] * 1.1;     // Red
-        data[i+1] = data[i+1] * 1.05; // Green
-        data[i+2] = data[i+2] * 1.2;  // Blue
-      }
-
-      ctx.putImageData(imageData, 0, 0);
-    }
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>فلتر صور بالذكاء الاصطناعي</title>
-  <style>
-    body {
-      background-color: #0d1117;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      margin-bottom: 20px;
-      color: #58a6ff;
-      animation: fadeIn 2s ease;
-    }
-    input[type="file"] {
-      margin: 20px;
-    }
-    img {
-      max-width: 80%;
-      margin: 20px 0;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(88,166,255,0.6);
-      transition: all 0.5s ease;
-    }
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    button {
-      background: #1f6feb;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: bold;
-    }
-    button:hover {
-      background: #58a6ff;
-      transform: scale(1.1);
-      box-shadow: 0 0 15px #58a6ff;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-  </style>
-</head>
-<body>
-  <h1>🎨 موقع تعديل الصور - 20 فلتر</h1>
-  <input type="file" accept="image/*" onchange="loadImage(event)">
-  <br>
-  <img id="uploadedImage" src="" alt="صورتك هتظهر هنا">
-  
-  <div class="buttons">
-    <button onclick="applyFilter('none')">Reset</button>
-    <button onclick="applyFilter('grayscale(100%)')">Grayscale</button>
-    <button onclick="applyFilter('sepia(100%)')">Sepia</button>
-    <button onclick="applyFilter('invert(100%)')">Invert</button>
-    <button onclick="applyFilter('blur(5px)')">Blur</button>
-    <button onclick="applyFilter('brightness(150%)')">Brightness+</button>
-    <button onclick="applyFilter('brightness(50%)')">Brightness-</button>
-    <button onclick="applyFilter('contrast(200%)')">Contrast+</button>
-    <button onclick="applyFilter('contrast(50%)')">Contrast-</button>
-    <button onclick="applyFilter('saturate(200%)')">Saturate+</button>
-    <button onclick="applyFilter('saturate(50%)')">Saturate-</button>
-    <button onclick="applyFilter('hue-rotate(90deg)')">Hue Rotate 90°</button>
-    <button onclick="applyFilter('hue-rotate(180deg)')">Hue Rotate 180°</button>
-    <button onclick="applyFilter('hue-rotate(270deg)')">Hue Rotate 270°</button>
-    <button onclick="applyFilter('opacity(50%)')">Opacity 50%</button>
-    <button onclick="applyFilter('opacity(80%)')">Opacity 80%</button>
-    <button onclick="applyFilter('drop-shadow(10px 10px 5px #58a6ff)')">Shadow Blue</button>
-    <button onclick="applyFilter('drop-shadow(10px 10px 5px red)')">Shadow Red</button>
-    <button onclick="applyFilter('contrast(150%) brightness(120%)')">Pop</button>
-    <button onclick="applyFilter('grayscale(50%) sepia(50%)')">Retro</button>
+  <!-- قائمة جانبية -->
+  <div class="sidebar">
+    <button class="menu-btn" onclick="openSection('filters-section')">🎨 الفلاتر</button>
+    <button class="menu-btn" onclick="openSection('adjustments-section')">⚙️ ضبط الصورة</button>
+    <button class="menu-btn" onclick="downloadImage()">⬇️ تحميل</button>
   </div>
 
+  <!-- منطقة المحتوى -->
+  <div class="main">
+    <h1>محرر الصور - وضع ليلي</h1>
+
+    <!-- رفع صورة -->
+    <input type="file" accept="image/*" onchange="loadImage(event)">
+    <br><br>
+
+    <!-- الصورة -->
+    <div class="image-container">
+      <img id="preview" src="" alt="صورة للمعاينة">
+    </div>
+
+    <!-- قسم الفلاتر -->
+    <div id="filters-section" class="section">
+      <h2>الفلاتر</h2>
+      <div id="filters" class="filters-container"></div>
+    </div>
+
+    <!-- قسم ضبط الصورة -->
+    <div id="adjustments-section" class="section hidden">
+      <h2>ضبط الصورة</h2>
+      <label>السطوع:
+        <input type="range" id="brightness" min="50" max="200" value="100" oninput="updateAdjustments()">
+      </label>
+      <br>
+      <label>التباين:
+        <input type="range" id="contrast" min="50" max="200" value="100" oninput="updateAdjustments()">
+      </label>
+      <br>
+      <label>التشبع:
+        <input type="range" id="saturate" min="50" max="200" value="100" oninput="updateAdjustments()">
+      </label>
+      <br>
+      <label>الضبابية:
+        <input type="range" id="blur" min="0" max="10" value="0" oninput="updateAdjustments()">
+      </label>
+    </div>
+  </div>
+
+  <!-- مكتبة التحميل -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <!-- ملفات جافاسكربت -->
+  <script src="filters.js"></script>
+  <script src="adjustments.js"></script>
+  <script src="app.js"></script>
+
   <script>
-    const img = document.getElementById('uploadedImage');
-
-    function loadImage(event) {
-      img.src = URL.createObjectURL(event.target.files[0]);
-      img.style.filter = 'none';
-    }
-
-    function applyFilter(filter) {
-      img.style.filter = filter;
-      img.style.transition = "all 0.5s ease";
+    // التبديل بين الأقسام
+    function openSection(id) {
+      document.querySelectorAll(".section").forEach(sec => sec.classList.add("hidden"));
+      document.getElementById(id).classList.remove("hidden");
     }
   </script>
 </body>
