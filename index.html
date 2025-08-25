@@ -1,283 +1,834 @@
-:root {
-    --primary-color: #2196f3;
-    --primary-dark: #1976d2;
-    --text-color: #333;
-    --bg-color: #f9f9f9;
-    --card-bg: #ffffff;
-    --border-color: #e0e0e0;
-    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
-}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2196f3">
+    <title>محرر الصور - تطبيق ويب متقدم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root {
+            --primary-color: #2196f3;
+            --primary-dark: #1976d2;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
 
-.dark-mode {
-    --text-color: #f0f0f0;
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --border-color: #333;
-    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
+        .dark-mode {
+            --text-color: #f0f0f0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: var(--transition);
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    padding: 20px;
-    transition: var(--transition);
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            transition: var(--transition);
+        }
 
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-}
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding: 15px 0;
-    border-bottom: 1px solid var(--border-color);
-}
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--primary-color);
-    display: flex;
-    align-items: center;
-}
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
 
-.logo i {
-    margin-left: 10px;
-}
+        .logo i {
+            margin-left: 10px;
+        }
 
-.controls {
-    display: flex;
-    gap: 15px;
-}
+        .controls {
+            display: flex;
+            gap: 15px;
+        }
 
-.btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: var(--shadow);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
 
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
-}
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+        }
 
-.btn:active {
-    transform: translateY(0);
-}
+        .btn:active {
+            transform: translateY(0);
+        }
 
-.btn i {
-    font-size: 16px;
-}
+        .btn i {
+            font-size: 16px;
+        }
 
-.theme-toggle {
-    background-color: transparent;
-    color: var(--text-color);
-    border: 2px solid var(--border-color);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 20px;
-}
+        .theme-toggle {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+        }
 
-.main-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 20px;
-}
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+        }
 
-.panel {
-    background-color: var(--card-bg);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    height: fit-content;
-}
+        .panel {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
 
-.panel-title {
-    font-size: 18px;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--primary-color);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        .panel-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.filters-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
 
-.filter-item {
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid var(--border-color);
-    transition: var(--transition);
-}
+        .filter-item {
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
 
-.filter-item:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-3px);
-}
+        .filter-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
 
-.filter-item.active {
-    border-color: var(--primary-color);
-    background-color: rgba(33, 150, 243, 0.1);
-}
+        .filter-item.active {
+            border-color: var(--primary-color);
+            background-color: rgba(33, 150, 243, 0.1);
+        }
 
-.filter-preview {
-    width: 100%;
-    height: 70px;
-    border-radius: 8px;
-    margin-bottom: 5px;
-    background-color: #eee;
-    background-size: cover;
-    background-position: center;
-}
+        .filter-preview {
+            width: 100%;
+            height: 70px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #ff9966, #ff5e62);
+            background-size: cover;
+            background-position: center;
+        }
 
-.adjustment-item {
-    margin-bottom: 15px;
-}
+        .adjustment-item {
+            margin-bottom: 15px;
+        }
 
-.adjustment-label {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-}
+        .adjustment-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
 
-.slider {
-    width: 100%;
-    height: 8px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: #ddd;
-    outline: none;
-    border-radius: 4px;
-}
+        .slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #ddd;
+            outline: none;
+            border-radius: 4px;
+        }
 
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--primary-color);
-    cursor: pointer;
-}
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
 
-.image-container {
-    position: relative;
-    background-color: var(--card-bg);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 500px;
-}
+        .image-container {
+            position: relative;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+        }
 
-#image-display {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-}
+        #image-display {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
 
-.upload-placeholder {
-    text-align: center;
-    padding: 40px;
-    color: #888;
-}
+        .upload-placeholder {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
 
-.upload-placeholder i {
-    font-size: 60px;
-    margin-bottom: 20px;
-    color: #ccc;
-}
+        .upload-placeholder i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
 
-.hamburger-menu {
-    display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-}
+        .hamburger-menu {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
 
-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    border-top: 1px solid var(--border-color);
-    color: #777;
-}
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            color: #777;
+        }
 
-/* أنيميشن لزر التحميل */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
+        /* أنيميشن لزر التحميل */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
-.pulse {
-    animation: pulse 2s infinite;
-}
+        .pulse {
+            animation: pulse 2s infinite;
+        }
 
-/* responsive design */
-@media (max-width: 1024px) {
-    .main-content {
-        grid-template-columns: 1fr 2fr;
-    }
+        /* responsive design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr 2fr;
+            }
+            
+            .right-panel {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .left-panel {
+                display: none;
+            }
+            
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* قائمة التلت شرط */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: var(--card-bg);
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-camera"></i>
+                <span>محرر الصور</span>
+            </div>
+            
+            <div class="controls">
+                <button class="btn pulse" id="upload-btn">
+                    <i class="fas fa-upload"></i>
+                    رفع صورة
+                </button>
+                <button class="btn" id="download-btn">
+                    <i class="fas fa-download"></i>
+                    تحميل
+                </button>
+                <button class="btn" id="reset-btn">
+                    <i class="fas fa-redo"></i>
+                    إعادة تعيين
+                </button>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="hamburger-menu" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="panel left-panel">
+                <h2 class="panel-title"><i class="fas fa-filter"></i> الفلاتر</h2>
+                <div class="filters-grid" id="filters-container">
+                    <!-- سيتم ملؤها بالفلترات عبر JavaScript -->
+                </div>
+            </div>
+            
+            <div class="image-container">
+                <div class="upload-placeholder" id="upload-placeholder">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>قم برفع صورة لبدء التعديل</p>
+                </div>
+                <canvas id="image-canvas" style="display: none;"></canvas>
+            </div>
+            
+            <div class="panel right-panel">
+                <h2 class="panel-title"><i class="fas fa-sliders-h"></i> ضبط الصورة</h2>
+                
+                <div class="adjustment-item">
+                    <div class="adjustment-label">
+                        <span>السطوع</span>
+                        <span id="brightness-value">0</span>
+                    </div>
+                    <input type="range" min="-100" max="100" value="0" class="slider" id="brightness-slider">
+                </div>
+                
+                <div class="adjustment-item">
+                    <div class="adjustment-label">
+                        <span>التباين</span>
+                        <span id="contrast-value">0</span>
+                    </div>
+                    <input type="range" min="-100" max="100" value="0" class="slider" id="contrast-slider">
+                </div>
+                
+                <div class="adjustment-item">
+                    <div class="adjustment-label">
+                        <span>التشبع</span>
+                        <span id="saturation-value">0</span>
+                    </div>
+                    <input type="range" min="-100" max="100" value="0" class="slider" id="saturation-slider">
+                </div>
+                
+                <div class="adjustment-item">
+                    <div class="adjustment-label">
+                        <span>الحدة</span>
+                        <span id="sharpness-value">0</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="sharpness-slider">
+                </div>
+                
+                <div class="adjustment-item">
+                    <div class="adjustment-label">
+                        <span>الغباش</span>
+                        <span id="blur-value">0</span>
+                    </div>
+                    <input type="range" min="0" max="20" value="0" class="slider" id="blur-slider">
+                </div>
+                
+                <div class="adjustment-item">
+                    <div class="adjustment-label">
+                        <span>التدرج اللوني</span>
+                        <span id="hue-value">0</span>
+                    </div>
+                    <input type="range" min="0" max="360" value="0" class="slider" id="hue-slider">
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 محرر الصور - تطبيق ويب متقدم لتعديل الصور</p>
+        </footer>
+    </div>
     
-    .right-panel {
-        display: none;
-    }
+    <!-- قائمة التلت شرط -->
+    <div class="overlay" id="overlay"></div>
+    <div class="side-menu" id="side-menu">
+        <div class="menu-header">
+            <h3>القائمة الرئيسية</h3>
+            <button class="close-menu" id="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="menu-section">
+            <h4 class="panel-title"><i class="fas fa-filter"></i> الفلاتر</h4>
+            <div class="filters-grid" id="menu-filters-container">
+                <!-- سيتم ملؤها بالفلترات عبر JavaScript -->
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <h4 class="panel-title"><i class="fas fa-sliders-h"></i> ضبط الصورة</h4>
+            
+            <div class="adjustment-item">
+                <div class="adjustment-label">
+                    <span>السطوع</span>
+                    <span id="menu-brightness-value">0</span>
+                </div>
+                <input type="range" min="-100" max="100" value="0" class="slider" id="menu-brightness-slider">
+            </div>
+            
+            <div class="adjustment-item">
+                <div class="adjustment-label">
+                    <span>التباين</span>
+                    <span id="menu-contrast-value">0</span>
+                </div>
+                <input type="range" min="-100" max="100" value="0" class="slider" id="menu-contrast-slider">
+            </div>
+            
+            <div class="adjustment-item">
+                <div class="adjustment-label">
+                    <span>التشبع</span>
+                    <span id="menu-saturation-value">0</span>
+                </div>
+                <input type="range" min="-100" max="100" value="0" class="slider" id="menu-saturation-slider">
+            </div>
+            
+            <div class="adjustment-item">
+                <div class="adjustment-label">
+                    <span>الحدة</span>
+                    <span id="menu-sharpness-value">0</span>
+                </div>
+                <input type="range" min="0" max="100" value="0" class="slider" id="menu-sharpness-slider">
+            </div>
+            
+            <div class="adjustment-item">
+                <div class="adjustment-label">
+                    <span>الغباش</span>
+                    <span id="menu-blur-value">0</span>
+                </div>
+                <input type="range" min="0" max="20" value="0" class="slider" id="menu-blur-slider">
+            </div>
+            
+            <div class="adjustment-item">
+                <div class="adjustment-label">
+                    <span>التدرج اللوني</span>
+                    <span id="menu-hue-value">0</span>
+                </div>
+                <input type="range" min="0" max="360" value="0" class="slider" id="menu-hue-slider">
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <h4 class="panel-title"><i class="fas fa-info-circle"></i> معلومات</h4>
+            <p>محرر الصور هو تطبيق ويب متقدم يسمح لك بتعديل الصور وإضافة الفلاتر المختلفة.</p>
+            <p>يمكنك رفع صورة من جهازك، تطبيق الفلاتر، ضبط الإعدادات، ثم تحميل الصورة المعدلة.</p>
+        </div>
+    </div>
     
-    .hamburger-menu {
-        display: block;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-content {
-        grid-template-columns: 1fr;
-    }
+    <input type="file" id="file-input" accept="image/*" style="display: none;">
     
-    .left-panel {
-        display: none;
-    }
-    
-    .filters-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+    <script>
+        // عناصر DOM
+        const themeToggle = document.getElementById('theme-toggle');
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const uploadPlaceholder = document.getElementById('upload-placeholder');
+        const canvas = document.getElementById('image-canvas');
+        const ctx = canvas.getContext('2d');
+        const filtersContainer = document.getElementById('filters-container');
+        const menuFiltersContainer = document.getElementById('menu-filters-container');
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const sideMenu = document.getElementById('side-menu');
+        const overlay = document.getElementById('overlay');
+        
+        // عناصر التعديل
+        const brightnessSlider = document.getElementById('brightness-slider');
+        const contrastSlider = document.getElementById('contrast-slider');
+        const saturationSlider = document.getElementById('saturation-slider');
+        const sharpnessSlider = document.getElementById('sharpness-slider');
+        const blurSlider = document.getElementById('blur-slider');
+        const hueSlider = document.getElementById('hue-slider');
+        
+        // عناصر التعديل في القائمة
+        const menuBrightnessSlider = document.getElementById('menu-brightness-slider');
+        const menuContrastSlider = document.getElementById('menu-contrast-slider');
+        const menuSaturationSlider = document.getElementById('menu-saturation-slider');
+        const menuSharpnessSlider = document.getElementById('menu-sharpness-slider');
+        const menuBlurSlider = document.getElementById('menu-blur-slider');
+        const menuHueSlider = document.getElementById('menu-hue-slider');
+        
+        // قيم التعديل
+        const brightnessValue = document.getElementById('brightness-value');
+        const contrastValue = document.getElementById('contrast-value');
+        const saturationValue = document.getElementById('saturation-value');
+        const sharpnessValue = document.getElementById('sharpness-value');
+        const blurValue = document.getElementById('blur-value');
+        const hueValue = document.getElementById('hue-value');
+        
+        // قيم التعديل في القائمة
+        const menuBrightnessValue = document.getElementById('menu-brightness-value');
+        const menuContrastValue = document.getElementById('menu-contrast-value');
+        const menuSaturationValue = document.getElementById('menu-saturation-value');
+        const menuSharpnessValue = document.getElementById('menu-sharpness-value');
+        const menuBlurValue = document.getElementById('menu-blur-value');
+        const menuHueValue = document.getElementById('menu-hue-value');
+        
+        // حالة التطبيق
+        let originalImage = null;
+        let currentImage = null;
+        let activeFilter = null;
+        
+        // تسجيل Service Worker لـ PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then((registration) => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+        
+        // تبديل الوضع الليلي
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // تحميل السمة من localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        // فتح وإغلاق القائمة
+        menuToggle.addEventListener('click', () => {
+            sideMenu.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        overlay.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // رفع الصورة
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        originalImage = img;
+                        currentImage = img;
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        uploadPlaceholder.style.display = 'none';
+                        canvas.style.display = 'block';
+                    }
+                    img.src = event.target.result;
+                }
+                
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+        
+        // إنشاء الفلاتر
+        const filters = [
+            { name: 'طبيعي', class: 'normal', style: '' },
+            { name: 'أسود وأبيض', class: 'grayscale', style: 'grayscale(100%)' },
+            { name: 'سيبيا', class: 'sepia', style: 'sepia(100%)' },
+            { name: 'عكسي', class: 'invert', style: 'invert(100%)' },
+            { name: 'دفء', class: 'warm', style: 'sepia(30%) hue-rotate(-20deg) saturate(120%)' },
+            { name: 'برودة', class: 'cool', style: 'sepia(10%) hue-rotate(20deg) saturate(130%)' },
+            { name: 'سوداوي', class: 'melancholy', style: 'grayscale(50%) brightness(90%) contrast(110%)' },
+            { name: 'مشرق', class: 'bright', style: 'brightness(120%) saturate(120%)' },
+            { name: 'فينوس', class: 'venus', style: 'hue-rotate(300deg) saturate(150%)' },
+            { name: 'أمبير', class: 'amber', style: 'sepia(40%) hue-rotate(10deg) saturate(140%)' },
+            { name: 'ازرقاق', class: 'cyanotype', style: 'sepia(60%) hue-rotate(180deg) saturate(200%)' },
+            { name: 'حزين', class: 'sad', style: 'grayscale(70%) brightness(85%)' },
+            { name: 'فرح', class: 'happy', style: 'brightness(115%) saturate(130%) hue-rotate(10deg)' },
+            { name: 'رومانسي', class: 'romantic', style: 'sepia(30%) hue-rotate(330deg) saturate(140%)' },
+            { name: 'خريف', class: 'autumn', style: 'sepia(50%) hue-rotate(10deg) saturate(120%)' },
+            { name: 'ربيع', class: 'spring', style: 'hue-rotate(60deg) saturate(130%) brightness(110%)' },
+            { name: 'صيف', class: 'summer', style: 'hue-rotate(120deg) saturate(140%)' },
+            { name: 'شتاء', class: 'winter', style: 'hue-rotate(200deg) saturate(80%) brightness(110%)' },
+            { name: 'ليلي', class: 'nocturnal', style: 'brightness(80%) contrast(120%) hue-rotate(240deg)' },
+            { name: 'نهاري', class: 'daylight', style: 'brightness(115%) contrast(110%) saturate(120%)' },
+            { name: 'كلاسيكي', class: 'vintage', style: 'sepia(60%) hue-rotate(5deg) contrast(110%)' },
+            { name: 'حديث', class: 'modern', style: 'contrast(130%) saturate(110%)' },
+            { name: 'حلمي', class: 'dreamy', style: 'brightness(110%) contrast(90%) saturate(130%) blur(0.5px)' },
+            { name: 'درامي', class: 'dramatic', style: 'contrast(140%) brightness(90%)' },
+            { name: 'هادئ', class: 'calm', style: 'hue-rotate(270deg) saturate(90%) brightness(105%)' }
+        ];
+        
+        // إضافة الفلاتر إلى الواجهة
+        function populateFilters(container) {
+            filters.forEach(filter => {
+                const filterElement = document.createElement('div');
+                filterElement.classList.add('filter-item');
+                filterElement.setAttribute('data-filter', filter.class);
+                
+                filterElement.innerHTML = `
+                    <div class="filter-preview" style="filter: ${filter.style}"></div>
+                    <div>${filter.name}</div>
+                `;
+                
+                filterElement.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    filterElement.classList.add('active');
+                    activeFilter = filter.class;
+                    applyFilters();
+                });
+                
+                container.appendChild(filterElement);
+            });
+        }
+        
+        populateFilters(filtersContainer);
+        populateFilters(menuFiltersContainer);
+        
+        // تطبيق الفلاتر والتعديلات
+        function applyFilters() {
+            if (!currentImage) return;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImage, 0, 0);
+            
+            // تطبيق التعديلات الأساسية
+            const brightness = brightnessSlider.value;
+            const contrast = contrastSlider.value;
+            const saturation = saturationSlider.value;
+            const blur = blurSlider.value;
+            const hue = hueSlider.value;
+            
+            let filterString = '';
+            
+            if (brightness !== '0') filterString += `brightness(${1 + brightness / 100}) `;
+            if (contrast !== '0') filterString += `contrast(${1 + contrast / 100}) `;
+            if (saturation !== '0') filterString += `saturate(${1 + saturation / 100}) `;
+            if (blur !== '0') filterString += `blur(${blur}px) `;
+            if (hue !== '0') filterString += `hue-rotate(${hue}deg) `;
+            
+            // تطبيق الفلتر النشط
+            if (activeFilter && activeFilter !== 'normal') {
+                const filter = filters.find(f => f.class === activeFilter);
+                if (filter) {
+                    filterString += filter.style;
+                }
+            }
+            
+            canvas.style.filter = filterString;
+        }
+        
+        // تحديث قيم التعديلات في القائمة
+        function updateMenuSliders() {
+            menuBrightnessSlider.value = brightnessSlider.value;
+            menuContrastSlider.value = contrastSlider.value;
+            menuSaturationSlider.value = saturationSlider.value;
+            menuSharpnessSlider.value = sharpnessSlider.value;
+            menuBlurSlider.value = blurSlider.value;
+            menuHueSlider.value = hueSlider.value;
+            
+            menuBrightnessValue.textContent = brightnessSlider.value;
+            menuContrastValue.textContent = contrastSlider.value;
+            menuSaturationValue.textContent = saturationSlider.value;
+            menuSharpnessValue.textContent = sharpnessSlider.value;
+            menuBlurValue.textContent = blurSlider.value;
+            menuHueValue.textContent = hueSlider.value;
+        }
+        
+        // إضافة مستمعين لأحداث التعديلات
+        function setupSliderListeners(slider, valueElement, menuSlider, menuValueElement) {
+            slider.addEventListener('input', () => {
+                valueElement.textContent = slider.value;
+                if (menuSlider) menuSlider.value = slider.value;
+                if (menuValueElement) menuValueElement.textContent = slider.value;
+                applyFilters();
+            });
+            
+            if (menuSlider) {
+                menuSlider.addEventListener('input', () => {
+                    slider.value = menuSlider.value;
+                    valueElement.textContent = menuSlider.value;
+                    menuValueElement.textContent = menuSlider.value;
+                    applyFilters();
+                });
+            }
+        }
+        
+        setupSliderListeners(brightnessSlider, brightnessValue, menuBrightnessSlider, menuBrightnessValue);
+        setupSliderListeners(contrastSlider, contrastValue, menuContrastSlider, menuContrastValue);
+        setupSliderListeners(saturationSlider, saturationValue, menuSaturationSlider, menuSaturationValue);
+        setupSliderListeners(blurSlider, blurValue, menuBlurSlider, menuBlurValue);
+        setupSliderListeners(hueSlider, hueValue, menuHueSlider, menuHueValue);
+        
+        // إعادة تعيين الصورة
+        resetBtn.addEventListener('click', () => {
+            if (!originalImage) return;
+            
+            brightnessSlider.value = 0;
+            contrastSlider.value = 0;
+            saturationSlider.value = 0;
+            sharpnessSlider.value = 0;
+            blurSlider.value = 0;
+            hueSlider.value = 0;
+            
+            brightnessValue.textContent = '0';
+            contrastValue.textContent = '0';
+            saturationValue.textContent = '0';
+            sharpnessValue.textContent = '0';
+            blurValue.textContent = '0';
+            hueValue.textContent = '0';
+            
+            updateMenuSliders();
+            
+            activeFilter = null;
+            document.querySelectorAll('.filter-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImage, 0, 0);
+            canvas.style.filter = 'none';
+        });
+        
+        // تحميل الصورة المعدلة
+        downloadBtn.addEventListener('click', () => {
+            if (!currentImage) return;
+            
+            const link = document.createElement('a');
+            link.download = 'edited-image.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+        
+        // تهيئة القيم الأولية
+        updateMenuSliders();
+    </script>
+</body>
+</html>
