@@ -1,72 +1,68 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>محرر الصور</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Editor</title>
+  
+  <!-- Style -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Manifest (PWA) -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Icons -->
+  <link rel="icon" href="icons/icon-192.png" type="image/png"/>
+  <link rel="apple-touch-icon" href="icons/icon-192.png"/>
+
 </head>
 <body>
-  <!-- قائمة جانبية -->
-  <div class="sidebar">
-    <button class="menu-btn" onclick="openSection('filters-section')">🎨 الفلاتر</button>
-    <button class="menu-btn" onclick="openSection('adjustments-section')">⚙️ ضبط الصورة</button>
-    <button class="menu-btn" onclick="downloadImage()">⬇️ تحميل</button>
+  <!-- ☰ القائمة الجانبية -->
+  <nav class="sidebar">
+    <button id="menuToggle">☰</button>
+    <ul id="menu">
+      <li><a href="#filters">🎨 الفلاتر</a></li>
+      <li><a href="#adjustments">🔧 إعدادات الصورة</a></li>
+    </ul>
+  </nav>
+
+  <!-- أداة رفع الصور -->
+  <div class="upload-container">
+    <input type="file" id="upload" accept="image/*" />
+    <button id="downloadBtn">💾 تحميل الصورة</button>
   </div>
 
-  <!-- منطقة المحتوى -->
-  <div class="main">
-    <h1>محرر الصور - وضع ليلي</h1>
-
-    <!-- رفع صورة -->
-    <input type="file" accept="image/*" onchange="loadImage(event)">
-    <br><br>
-
-    <!-- الصورة -->
-    <div class="image-container">
-      <img id="preview" src="" alt="صورة للمعاينة">
-    </div>
-
-    <!-- قسم الفلاتر -->
-    <div id="filters-section" class="section">
-      <h2>الفلاتر</h2>
-      <div id="filters" class="filters-container"></div>
-    </div>
-
-    <!-- قسم ضبط الصورة -->
-    <div id="adjustments-section" class="section hidden">
-      <h2>ضبط الصورة</h2>
-      <label>السطوع:
-        <input type="range" id="brightness" min="50" max="200" value="100" oninput="updateAdjustments()">
-      </label>
-      <br>
-      <label>التباين:
-        <input type="range" id="contrast" min="50" max="200" value="100" oninput="updateAdjustments()">
-      </label>
-      <br>
-      <label>التشبع:
-        <input type="range" id="saturate" min="50" max="200" value="100" oninput="updateAdjustments()">
-      </label>
-      <br>
-      <label>الضبابية:
-        <input type="range" id="blur" min="0" max="10" value="0" oninput="updateAdjustments()">
-      </label>
-    </div>
+  <!-- عرض الصورة -->
+  <div class="editor">
+    <canvas id="canvas"></canvas>
   </div>
 
-  <!-- مكتبة التحميل -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <!-- قسم الفلاتر -->
+  <section id="filters" class="panel">
+    <h2>🎨 الفلاتر</h2>
+    <div class="filters-grid" id="filtersList">
+      <!-- الفلاتر هتضاف هنا من JavaScript -->
+    </div>
+  </section>
 
-  <!-- ملفات جافاسكربت -->
-  <script src="filters.js"></script>
-  <script src="adjustments.js"></script>
-  <script src="app.js"></script>
+  <!-- قسم إعدادات الصورة -->
+  <section id="adjustments" class="panel">
+    <h2>🔧 إعدادات الصورة</h2>
+    <label>السطوع <input type="range" id="brightness" min="0" max="200" value="100"/></label>
+    <label>التباين <input type="range" id="contrast" min="0" max="200" value="100"/></label>
+    <label>التشبع <input type="range" id="saturation" min="0" max="200" value="100"/></label>
+    <label>الحدة <input type="range" id="sharpness" min="0" max="10" value="0"/></label>
+  </section>
 
+  <!-- Script -->
+  <script src="script.js"></script>
   <script>
-    // التبديل بين الأقسام
-    function openSection(id) {
-      document.querySelectorAll(".section").forEach(sec => sec.classList.add("hidden"));
-      document.getElementById(id).classList.remove("hidden");
+    // تسجيل الـ Service Worker (عشان PWA)
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+      .then(() => console.log("Service Worker Registered"))
+      .catch(err => console.log("SW Error:", err));
     }
   </script>
 </body>
